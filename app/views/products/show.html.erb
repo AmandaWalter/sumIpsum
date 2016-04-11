@@ -10,10 +10,9 @@
   <%= @product.description %>
 </p>
 
-<p>
-  <strong>Image url:</strong>
-  <%= @product.image_url %>
-</p>
+<span>
+  <%= image_tag(@product.image_url, class: 'show_image') %>
+</span>
 
 <p>
   <strong>Price:</strong>

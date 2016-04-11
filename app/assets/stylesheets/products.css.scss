@@ -13,13 +13,21 @@
     vertical-align: top;
   }
 
+  a:link, a:visited {
+    text-decoration: none;
+    color: hotpink;
+  }
   .list_image {
     width:  60px;
     height: 70px;
+    float: right;
   }
-
+  .show_image {
+    width: auto;
+    height: auto;
+  }
   .list_description {
-    width: 60%;
+    width: 75%;
 
     dl {
       margin: 0;
@@ -47,7 +55,7 @@
   }
 
   tr.list_line_odd {
-    background: pink;
+    background: aquamarine;
   }
 }
 /* END_HIGHLIGHT */
