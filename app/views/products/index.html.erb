@@ -1,5 +1,6 @@
-<h1>Here's some Ipsum!</h1>
 
+
+<h1>Here's some Ipsum!</h1>
 <table>
   <tr><th></th><th>Ipsum</th><th>Price</th></tr>
 <% @products.each do |product| %>
@@ -16,9 +17,8 @@
                length: 400) %></dd>
       </dl>
     </td>
-
     <td class="list_price">
-      <%= product.price %>
+      <%= number_to_currency(product.price) %>
     </td>
 
     <td class="list_actions">

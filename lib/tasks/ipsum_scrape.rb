@@ -12,25 +12,41 @@ browser = Capybara.current_session
 url = "http://meettheipsums.com/"
 browser.visit url
 
+class Ipsum
+  attr_reader :item
+
+  def initialize(item)
+    @item = item
+  end
+
+  def title
+    item.find("div.title").text
+  end
+
+  def sample
+    item.find("div.sample").text
+  end
+
+  def url
+    item.find("div.link a")['href']
+  end
+end
+
 array_ipsum = Array.new
+
 browser.all("li").each do |item|
-  ipsum = item.find("div.title").text
-  sample = item.find("div.sample").text
-  url = item.find("div.link a")['href']
-  array_ipsum << [ipsum, url, sample]
+  array_ipsum << Ipsum.new(item)
 end
 random = Random.new
 
-array_ipsum.each do |inner|
-    agent = Mechanize.new
-    page = agent.get('http://localhost:3000/products/new')
-    product_form = page.form
-    product_form.field_with(:name => 'product[title]').value = inner.first
-    # binding.pry
-    # product_form.field_with(:name => 'product[image_url]').value = inner[1]
-    pic = inner[0].split(" ").first.downcase
-    product_form.field_with(:name => 'product[image_url]').value = "#{pic}.gif"
-    product_form.field_with(:name => 'product[description]').value = inner.last
-    product_form.field_with(:name => 'product[price]').value = random.rand(100.5).round(2)
-    product_form.click_button
+array_ipsum.each do |ipsum|
+  agent = Mechanize.new
+  page = agent.get('http://localhost:3000/products/new')
+  product_form = page.form
+  product_form.field_with(:name => 'product[title]').value = ipsum.title
+  pic = ipsum.title.split(" ").first.downcase
+  product_form.field_with(:name => 'product[image_url]').value = "#{pic}.gif"
+  product_form.field_with(:name => 'product[description]').value = ipsum.sample
+  product_form.field_with(:name => 'product[price]').value = random.rand(100.5).round(2)
+  product_form.click_button
 end

@@ -7,8 +7,13 @@
   <%= csrf_meta_tags %>
 </head>
 <body class='<%= controller.controller_name %>'>
+  <div id="banner">
+   <%= image_tag("lorem-ipsum.jpg", id: "logo") %>
+    <%= @page_title || "Ipsum Catalog" %>
+  </div>
 
-<%= yield %>
-
+  <div id="main">
+    <%= yield %>
+  </div>
 </body>
 </html>
